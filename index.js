@@ -8,9 +8,7 @@ function createStore(reducer) {
   let state;
   let listeners = [];
 
-  const getState = () => {
-
-  }
+  const getState = () => state
 
   const subscribe = (listener) => {
     listeners.push(listener)
