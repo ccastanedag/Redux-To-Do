@@ -31,12 +31,18 @@
 }
 
 function todos(state = [], action) {
-  if (action.type === 'ADD_TODO') {
-    return state.concat([action.todo]); // concat don't change the original array, create another array. This keep the reducer as pure function
+  switch (action.type) {
+    case 'ADD_TODO':
+      return state.concat([action.todo]); // concat don't change the original array, create another array. This keep the reducer as pure function
+    case 'REMOVE_TODO':
+      return state.filter((todo) => todo.id !== action.id);
+    case 'TOGGLE_TODO':
+      return state.map((todo) => todo.id !== action.id ? todo :
+        Object.assign({}, todo, { complete: !todo.complete })
+      );
+    default:
+      return state
   }
-
-  return state;
-}
 
 function createStore(reducer) {
   // The store should have 4 parts
