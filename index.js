@@ -44,36 +44,54 @@ function todos(state = [], action) {
       return state
   }
 
-function createStore(reducer) {
-  // The store should have 4 parts
-  // 1) The state tree (private)
-  // 2) A method to GET the state (public)
-  // 3) LISTEN to changes on the state (public)
-  // 4) UPDATE the state (public)
-  let state;
-  let listeners = [];
-
-  const getState = () => {
-
-  }
-
-  const subscribe = (listener) => {
-    listeners.push(listener)
-    return () => {
-      listeners = listeners.filter((l) => l !== listener);
+  function goals(state = [], action) {
+    switch (action.type) {
+      case 'ADD_GOAL':
+        return state.concat([action.goal])
+      case 'REMOVE_GOAL':
+        return state.filter((goal)=> goal.id !== action.id)
+      default:
+        return state
     }
   }
 
-  const dispatch = (action) => {
-    // call todos
-    // loop over the listeners and execute them
-    state = reducer(state, action);
-    listeners.forEach((listener) => listener());
+  function app(state = {}, action) {
+    return {
+      todos: todos(state.todos, action),
+      goals: goals(state.goals, action)
+    }
   }
 
-  return {
-    getState,
-    subscribe,
-    dispatch
+  function createStore(reducer) {
+    // The store should have 4 parts
+    // 1) The state tree (private)
+    // 2) A method to GET the state (public)
+    // 3) LISTEN to changes on the state (public)
+    // 4) UPDATE the state (public)
+    let state;
+    let listeners = [];
+
+    const getState = () => {
+
+    }
+
+    const subscribe = (listener) => {
+      listeners.push(listener)
+      return () => {
+        listeners = listeners.filter((l) => l !== listener);
+      }
+    }
+
+    const dispatch = (action) => {
+      // call todos
+      // loop over the listeners and execute them
+      state = reducer(state, action);
+      listeners.forEach((listener) => listener());
+    }
+
+    return {
+      getState,
+      subscribe,
+      dispatch
+    }
   }
-}
