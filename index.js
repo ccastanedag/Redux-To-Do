@@ -29,16 +29,16 @@
   type: 'REMOVE_GOAL',
     id: 0
 }
+
 function todos(state = [], action) {
-  if (action.type==='ADD_TODO'){
+  if (action.type === 'ADD_TODO') {
     return state.concat([action.todo]); // concat don't change the original array, create another array. This keep the reducer as pure function
   }
 
   return state;
 }
 
-
-function createStore() {
+function createStore(reducer) {
   // The store should have 4 parts
   // 1) The state tree (private)
   // 2) A method to GET the state (public)
@@ -58,8 +58,16 @@ function createStore() {
     }
   }
 
+  const dispatch = (action) => {
+    // call todos
+    // loop over the listeners and execute them
+    state = reducer(state, action);
+    listeners.forEach((listener) => listener());
+  }
+
   return {
     getState,
     subscribe,
+    dispatch
   }
 }
