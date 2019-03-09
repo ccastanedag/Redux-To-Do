@@ -29,6 +29,14 @@
   type: 'REMOVE_GOAL',
     id: 0
 }
+function todos(state = [], action) {
+  if (action.type==='ADD_TODO'){
+    return state.concat([action.todo]); // concat don't change the original array, create another array. This keep the reducer as pure function
+  }
+
+  return state;
+}
+
 
 function createStore() {
   // The store should have 4 parts
