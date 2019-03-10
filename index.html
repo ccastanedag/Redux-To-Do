@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <div>
+  <!-- <div>
     <h1>TODO LIST</h1>
     <input id='todo' type="text" placeholder="Add Todo">
     <button id='todoBtn'>ADD TODO</button>
@@ -31,7 +31,7 @@
     <ul id='goals'></ul>
   </div>
 
-  <hr>
+  <hr> -->
 
   <div id='app'></div>
 
@@ -180,7 +180,7 @@
       goals
     }), Redux.applyMiddleware(checker, logger));
 
-    function addTodo() {
+   /* function addTodo() {
       const input = document.getElementById('todo');
       const name = input.value;
       input.value = '';
@@ -256,7 +256,7 @@
       removeBtn.addEventListener('click', onClick);
 
       return removeBtn;
-    } 
+    } */
   </script>
   <script type="text/babel">
     function List (props) {
