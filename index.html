@@ -7,6 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Redux-To-Do</title>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js'></script>
+  <script src='https://unpkg.com/react@16.3.0-alpha.1/umd/react.development.js'></script>
+  <script src='https://unpkg.com/react-dom@16.3.0-alpha.1/umd/react-dom.development.js'></script>
+  <script src='https://unpkg.com/babel-standalone@6.15.0/babel.min.js'></script>
   <style>
     * {
       font-family: 'Arial';
@@ -27,6 +30,11 @@
     <button id='goalBtn'>ADD GOAL</button>
     <ul id='goals'></ul>
   </div>
+
+  <hr>
+
+  <div id='app'></div>
+
   <script type="text/javascript">
     function generateId() {
       return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36);
@@ -107,20 +115,18 @@
     }
 
     const checker = (store) => (next) => (action) => {
-      if(
+      if (
         action.type === ADD_TODO &&
         action.todo.name.toLowerCase().indexOf('bitcoin') !== -1
-      )
-      {
-        return alert ('Nope, thats a bad idea')
+      ) {
+        return alert('Nope, thats a bad idea')
       }
 
-      if(
+      if (
         action.type === ADD_GOAL &&
         action.goal.name.toLowerCase().indexOf('bitcoin') !== -1
-      )
-      {
-        return alert ('Nope, thats a bad idea')
+      ) {
+        return alert('Nope, thats a bad idea')
       }
 
       return next(action);
@@ -130,7 +136,7 @@
       console.group(action.type);
       console.log('The action: ', action);
       const result = next(action);
-      console.log('The new state: ',store.getState())
+      console.log('The new state: ', store.getState())
       console.groupEnd();
       return result;
     }
@@ -162,12 +168,12 @@
     }
 
     // Root Reducer
-   /* function app(state = {}, action) {
-      return {
-        todos: todos(state.todos, action),
-        goals: goals(state.goals, action)
-      }
-    }*/
+    /* function app(state = {}, action) {
+       return {
+         todos: todos(state.todos, action),
+         goals: goals(state.goals, action)
+       }
+     }*/
 
     store = Redux.createStore(Redux.combineReducers({
       todos,
@@ -251,6 +257,49 @@
 
       return removeBtn;
     } 
+  </script>
+  <script type="text/babel">
+    function List (props) {
+      return (
+        <ul>
+          <li>LIST</li>
+        </ul>
+      )
+    }
+     class Todos extends React.Component {
+      render() {
+        return (
+          <div>
+            TODOS
+             <List />
+          </div>
+        )
+      }
+    }
+     class Goals extends React.Component {
+      render() {
+        return (
+          <div>
+            GOALS
+             <List />
+          </div>
+        )
+      }
+    }
+     class App extends React.Component {
+      render() {
+        return (
+          <div>
+            <Todos />
+            <Goals />
+          </div>
+        )
+      }
+    }
+     ReactDOM.render(
+      <App />,
+      document.getElementById('app')
+    )
   </script>
 </body>
 
