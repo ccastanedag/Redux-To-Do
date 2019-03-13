@@ -135,7 +135,7 @@
       }
     }
 
-    function handleDeleteGoal(){
+    function handleDeleteGoal(goal){
       return (dispatch) => {
         dispatch(removeGoalAction(goal.id));
         return API.deleteGoal(goal.id)
